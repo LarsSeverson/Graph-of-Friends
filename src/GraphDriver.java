@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class GraphDriver {
     private static Graph theGraph;
-    private static Scanner input = new Scanner(System.in);
+    private static final Scanner input = new Scanner(System.in);
     public static void main(String[] args) {
         theGraph = new Graph();
         System.out.print("Enter file name: ");
@@ -22,16 +22,8 @@ public class GraphDriver {
 
             System.out.println("Total number of vertices in the Graph: " + theGraph.getNumberOfVertices());
             System.out.println("Total number of edges in the Graph: " + theGraph.getNumberOfEdges());
-
-            //while(true){
-            System.out.println("\n1. Remove friendship\n" +
-                    "2. Delete Account\n" +
-                    "3. Count friends\n" +
-                    "4. Friends Circle\n" +
-                    "5. Closeness centrality\n" +
-                    "6. Exit\n");
-
-
+            // Run switch inputs
+            run();
         }
         catch(IOException e){
             System.out.println("File not found");
@@ -45,13 +37,8 @@ public class GraphDriver {
         while((line = theFile.readLine()) != null){
             if (i > 0){
                 String[] data = line.split("\t");
-                if (data.length > 7){
-                    int index = 7;
-                    while(index < data.length){
-                        // Add edge
-                        theGraph.addEdge(data[0], data[index]);
-                        index++;
-                    }
+                for(int j = 7; j < data.length; j++){
+                    theGraph.addEdge(data[0], data[j]);
                 }
             }
             i++;
@@ -68,6 +55,49 @@ public class GraphDriver {
                 theGraph.addVertex(data);
             }
             i++;
+        }
+    }
+    private static void run(){
+        while(true) {
+            System.out.println("\n1. Remove friendship\n" +
+                    "2. Delete Account\n" +
+                    "3. Count friends\n" +
+                    "4. Friends Circle\n" +
+                    "5. Closeness centrality\n" +
+                    "6. Exit\n");
+            System.out.print("Enter an option: ");
+            switch(input.nextInt()){
+                case 1:
+                    System.out.print("Enter the first name of student 1: ");
+                    String friend1 = input.next();
+                    System.out.print("Enter the first name of student 2: ");
+                    String friend2 = input.next();
+
+                    theGraph.removeFriendship(friend1, friend2);
+                    break;
+                case 2:
+                    System.out.print("Please enter the first name of the student to delete: ");
+                    String student = input.next();
+
+                    theGraph.deleteAccount(student);
+                    break;
+                case 3:
+                    System.out.print("Please enter the first name of the student to check friend count: ");
+                    student = input.next();
+                    theGraph.countFriends(student);
+                    break;
+                case 4:
+                    System.out.print("Please enter the college to see the friend circles: ");
+                    Scanner in = new Scanner(System.in);
+                    theGraph.friendCircle(in.nextLine());
+                    break;
+                case 6:
+                    System.exit(1);
+
+                default:
+                    System.out.println("Invalid input.");
+                    break;
+            }
         }
     }
 }
