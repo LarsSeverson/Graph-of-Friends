@@ -1,15 +1,16 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class GraphDriver {
     private static Graph theGraph;
-    private static final Scanner input = new Scanner(System.in);
     public static void main(String[] args) {
         theGraph = new Graph();
         System.out.print("Enter file name: ");
         // Assignment05_inputFile.txt
+        Scanner input = new Scanner(System.in);
         try{
             String in;
             new BufferedReader(new FileReader(in = input.nextLine()));
@@ -58,6 +59,7 @@ public class GraphDriver {
         }
     }
     private static void run(){
+        Scanner input = new Scanner(System.in);
         while(true) {
             System.out.println("\n1. Remove friendship\n" +
                     "2. Delete Account\n" +
@@ -90,6 +92,20 @@ public class GraphDriver {
                     System.out.print("Please enter the college to see the friend circles: ");
                     Scanner in = new Scanner(System.in);
                     theGraph.friendCircle(in.nextLine());
+                    break;
+                case 5:
+                    String s;
+                    System.out.print("Please enter the student name to check closeness centrality: ");
+                    double sum = theGraph.closenessCentrality(s = input.next());
+                    if (sum == -1){
+                        System.out.println("Sorry..\n" + s + " not found!");
+                        break;
+                    }
+
+                    DecimalFormat res = new DecimalFormat("####0.00");
+                    System.out.println(res.format(sum));
+
+                    theGraph.normalizedCentrality(s, sum);
                     break;
                 case 6:
                     System.exit(1);

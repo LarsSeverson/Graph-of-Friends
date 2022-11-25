@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="423f0812-43f0-483e-80b1-16341feee348" name="Changes" comment="Hash Map Adjacency List">
+    <list default="true" id="423f0812-43f0-483e-80b1-16341feee348" name="Changes" comment="Hash Map Adjacency List - Added methods">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graph.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GraphDriver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GraphDriver.java" afterDir="false" />
@@ -71,7 +71,9 @@
       <workItem from="1669055439312" duration="18817000" />
       <workItem from="1669148592392" duration="19040000" />
       <workItem from="1669177630012" duration="6939000" />
-      <workItem from="1669217721202" duration="12011000" />
+      <workItem from="1669217721202" duration="12033000" />
+      <workItem from="1669263731442" duration="4204000" />
+      <workItem from="1669309423512" duration="7949000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1669062426439</created>
@@ -87,7 +89,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669093680672</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Hash Map Adjacency List - Added methods">
+      <created>1669260151866</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1669260151866</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -107,6 +116,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
     <MESSAGE value="Hash Map Adjacency List" />
-    <option name="LAST_COMMIT_MESSAGE" value="Hash Map Adjacency List" />
+    <MESSAGE value="Hash Map Adjacency List - Added methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="Hash Map Adjacency List - Added methods" />
   </component>
 </project>

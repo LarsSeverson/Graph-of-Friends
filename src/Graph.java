@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class Graph{
@@ -127,9 +128,67 @@ public class Graph{
         }
         System.out.println();
     }
-    public void closenessCentrality(String name){
+    public void normalizedCentrality(String name, double sum){
+        Vertex v = find(name);
+        sum = sum / (numberOfVertices - 1);
+        assert v != null;
+        DecimalFormat d = new DecimalFormat("####0.00");
+        System.out.println("The Normalized Closeness Centrality for " + v.firstName + ": " + d.format(sum));
+    }
+    public double closenessCentrality(String name){
+        // pre condition
         Vertex source = find(name);
-        double sum = sumBFS(source);
+        if (source == null){
+            return -1;
+        }
+        double sum = 0;
+        /* * Need to keep track of distance of each vertex; subject to change the
+             distance based on shortest path
+           * Need to keep track of every visited vertex - visited is defined
+             by every vertex at the top of the queue: pq
+         */
+        HashMap<Vertex, Float> distance = new HashMap<>();
+        HashMap<Vertex, Boolean> visited = new HashMap<>();
+        Queue<Vertex> pq = new LinkedList<>();
+
+        // Add the first source value - 0
+        distance.put(source, 0F);
+        pq.add(source);
+
+        // start Dijkstra's algorithm
+        while(!pq.isEmpty()){
+            Vertex v = pq.poll();
+            // top of queue
+            visited.put(v, true);
+            // BFS search
+            for(Vertex i : adjList.get(v)){
+                // A vertex must not be visited again if it has been visited / deque()'ed
+                if(visited.get(i) == null){
+                    // Only put it if it's absent with infinity as its value
+                    distance.putIfAbsent(i, Float.MAX_VALUE);
+                    // Since it is an unweighted graph and Dijkstra's algo is based on weight,
+                    // weight is 1 for every edge
+                    float weight = 1;
+                    // If the distance of the edge is greater than its vertex's distance + weight,
+                    // replace the edge's distance with the vertex's distance + 1 (weight)
+                    if (distance.get(i) > distance.get(v) + weight){
+                        distance.replace(i, distance.get(v) + weight);
+                        // Add it to the queue
+                        pq.add(i);
+                    }
+                }
+            }
+        }
+
+        // Get the closeness centrality
+        for(float i : distance.values()){
+            if(i != 0){
+                // defined by 1/dij for every distance of all Vertexes
+                sum += 1/i;
+            }
+        }
+        System.out.print("\nThe Closeness Centrality for " + source.firstName + ": ");
+        return sum;
     }
 
     public int getNumberOfVertices() {
@@ -163,28 +222,6 @@ public class Graph{
         }
         return result;
     }
-    private double sumBFS(Vertex source){
-        double res = 0;
-        HashMap<Vertex, Float> distance = new HashMap<>();
-        PriorityQueue<Vertex> pq = new PriorityQueue<>();
-
-        distance.put(source, 0F);
-        pq.add(source);
-
-        float d = 1;
-        while(!pq.isEmpty()){
-            Vertex v = pq.poll();
-            for(Vertex i : adjList.get(v)){
-                if(!distance.containsKey(i)){
-                    distance.put(i, 1/d);
-                    pq.add(i);
-                }
-            }
-            d++;
-        }
-        return res;
-    }
-
     private Vertex find(String data){
         try{
             long l = Long.parseLong(data);
